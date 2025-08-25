@@ -48,7 +48,7 @@
     <div class="container wrapper flex-grow-1">
       {% for message in messages %}
       <div class="alert alert-dismissible {{ message.tags }}" role="alert">
-        <div>{{ message | safe }}</div>
+        {{ message | safe }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
       {% endfor %}

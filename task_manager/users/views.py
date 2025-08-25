@@ -62,7 +62,7 @@ class UserDeleteView(
     DeleteView,
     ):
     template_name = 'users/delete.html'
-    success_message = 'Пользователь успешно удалён'
+    success_message = 'Пользователь успешно удален'
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()

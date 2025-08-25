@@ -2,6 +2,8 @@ import pytest
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 
+from task_manager.tasks.models import Task
+
 from .models import Status
 
 User = get_user_model()
@@ -43,3 +45,19 @@ class TestStatus:
         url = reverse('statuses:index')
         response = client.get(url)
         assert response.status_code == 302
+
+    def test_delete_used_status(self, logged_client):
+        status = Status.objects.create(name='В работе')
+        author = User.objects.get(username='user1')
+        Task.objects.create(
+            name='Test task',
+            status=status,
+            author=author
+        )
+
+        url = reverse('statuses:delete', args=[status.pk])
+        response = logged_client.post(url)
+
+        assert response.status_code == 302
+
+        assert Status.objects.filter(pk=status.pk).exists()

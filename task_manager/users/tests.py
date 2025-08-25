@@ -4,6 +4,9 @@ from django.contrib.messages import get_messages
 from django.test import TestCase
 from django.urls import reverse
 
+from task_manager.statuses.models import Status
+from task_manager.tasks.models import Task
+
 User = get_user_model()
 
 TEST_PASSWORD = 'letmeinplease'
@@ -73,5 +76,19 @@ class UserTests(TestCase):
         response = self.client.post(url)
         self.assertRedirects(response, reverse('users:index'))
         self.assertFalse(User.objects.filter(pk=self.user.pk).exists())
+
+    def test_cannot_delete_user_with_tasks(self):
+        status = Status.objects.create(name='В работе')
+
+        Task.objects.create(
+            name="Test task",
+            status=status,
+            author=self.user
+        )
+
+        self.client.login(username='user1', password=TEST_PASSWORD)
+        self.client.post(reverse('users:delete', args=[self.user.pk]))
+
+        self.assertTrue(User.objects.filter(pk=self.user.pk).exists())
 
 

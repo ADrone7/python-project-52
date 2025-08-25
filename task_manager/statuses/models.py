@@ -6,7 +6,7 @@ class Status(models.Model):
         max_length=256, 
         unique=True, 
         blank=False,
-        verbose_name='Name',
+        verbose_name='Имя',
     )
     created_at = models.DateTimeField(auto_now_add=True)
 

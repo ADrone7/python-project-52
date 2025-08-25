@@ -1,4 +1,6 @@
+from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -45,6 +47,20 @@ class StatusDeleteView(
     template_name = 'statuses/delete.html'
     success_message = 'Статус успешно удалён'
     success_url = reverse_lazy('statuses:index')
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        
+        if self.object.tasks.exists():
+            messages.error(
+                request,
+                "Невозможно удалить статус, потому что он используется"
+            )
+            return redirect(self.success_url)
+            
+        response = super().post(request, *args, **kwargs)
+        messages.success(self.request, self.success_message)
+        return response
 
 
 class StatusListView(

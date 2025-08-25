@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from task_manager.labels.models import Label
 from task_manager.statuses.models import Status
 
 User = get_user_model()
@@ -13,6 +14,7 @@ class Task(models.Model):
         Status,
         on_delete=models.PROTECT,
         verbose_name='Статус',
+        related_name='tasks',
     )
     author = models.ForeignKey(
         User,
@@ -27,6 +29,12 @@ class Task(models.Model):
         related_name="tasks_executor",
         blank=True,
         null=True
+    )
+    labels = models.ManyToManyField(
+        Label,
+        related_name='tasks',
+        blank=True,
+        verbose_name='Метки'
     )
     created_at = models.DateTimeField(
         auto_now_add=True,

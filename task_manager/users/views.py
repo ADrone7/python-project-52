@@ -64,6 +64,21 @@ class UserDeleteView(
     template_name = 'users/delete.html'
     success_message = 'Пользователь успешно удалён'
 
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        
+        if self.object.tasks_executor.exists() or \
+            self.object.tasks_author.exists():
+            messages.error(
+                request,
+                "Невозможно удалить поьзователя, потому что он используется"
+            )
+            return redirect(self.success_url)
+            
+        response = super().post(request, *args, **kwargs)
+        messages.success(self.request, self.success_message)
+        return response
+
 
 class UserListView(ListView):
     model = User

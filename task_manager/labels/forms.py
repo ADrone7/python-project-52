@@ -1,15 +1,15 @@
 from django import forms
 
-from .models import Task
+from .models import Label
 
 
-class TaskForm(forms.ModelForm):
+class LabelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
-    
+
     class Meta:
-        model = Task
-        fields = ['name', 'description', 'status', 'executor', 'labels']
+        model = Label
+        fields = ['name']

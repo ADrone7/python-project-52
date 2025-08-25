@@ -45,7 +45,7 @@ class StatusDeleteView(
     ):
     model = Status
     template_name = 'statuses/delete.html'
-    success_message = 'Статус успешно удалён'
+    success_message = 'Статус успешно удален'
     success_url = reverse_lazy('statuses:index')
 
     def post(self, request, *args, **kwargs):

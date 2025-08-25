@@ -31,7 +31,7 @@ class UserCreateForm(UserCreationForm):
         labels = {
             'first_name': 'Имя',
             'last_name': 'Фамилия',
-            'username': 'имя пользователя',
+            'username': 'Имя пользователя',
         }
         widgets = {
             'first_name': forms.TextInput(attrs={'required': True}),

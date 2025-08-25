@@ -20,7 +20,7 @@ class Task(models.Model):
         User,
         on_delete=models.PROTECT,
         verbose_name='Автор',
-        related_name="tasks_author"
+        related_name="tasks_author",
     )
     executor = models.ForeignKey(
         User,
@@ -28,13 +28,13 @@ class Task(models.Model):
         verbose_name='Исполнитель',
         related_name="tasks_executor",
         blank=True,
-        null=True
+        null=True,
     )
     labels = models.ManyToManyField(
         Label,
         related_name='tasks',
         blank=True,
-        verbose_name='Метки'
+        verbose_name='Метки',
     )
     created_at = models.DateTimeField(
         auto_now_add=True,

@@ -82,3 +82,47 @@ class TasksTest(TestCase):
         assert response.status_code == 302
         task.refresh_from_db()
         assert task.name == new_name
+
+    def test_filter_by_executor(self):
+        Task.objects.create(
+            name='Задеплоить проект1',
+            status=self.status,
+            author=self.user1,
+            executor=self.user2,
+        )
+        Task.objects.create(
+            name='Задеплоить проект2',
+            status=self.status,
+            author=self.user2,
+            executor=self.user1,
+        )
+        self.client.login(username='executor', password=TEST_PASSWORD)
+        url = reverse('tasks:index')
+        response = self.client.get(url, {
+            'executor': self.user1.pk,
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Задеплоить проект2')
+        self.assertNotContains(response, 'Задеплоить проект1')
+
+    def test_filter_self_tasks(self):
+        Task.objects.create(
+            name='Задеплоить проект1',
+            status=self.status,
+            author=self.user1,
+            executor=self.user2,
+        )
+        Task.objects.create(
+            name='Задеплоить проект2',
+            status=self.status,
+            author=self.user2,
+            executor=self.user1,
+        )
+        self.client.login(username='author', password=TEST_PASSWORD)
+        url = reverse('tasks:index')
+        response = self.client.get(url, {
+            'self_tasks': 'on',
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Задеплоить проект1')
+        self.assertNotContains(response, 'Задеплоить проект2')

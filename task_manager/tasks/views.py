@@ -13,6 +13,7 @@ from django.views.generic import (
 
 from task_manager.views import AuthRequired
 
+from .filters import TaskFilter
 from .forms import TaskForm
 from .models import Task
 
@@ -21,6 +22,22 @@ class TaskListView(AuthRequired, ListView):
     model = Task
     template_name = 'tasks/index.html'
     context_object_name = 'tasks'
+    
+    def get_queryset(self):
+        queryset = Task.objects.all()
+        self.filterset = TaskFilter(self.request.GET, queryset=queryset)
+
+        queryset = self.filterset.qs
+
+        if self.request.GET.get('self_tasks'):
+            queryset = queryset.filter(author=self.request.user)
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = self.filterset
+        return context
 
 
 class TaskShowView(AuthRequired, DetailView):

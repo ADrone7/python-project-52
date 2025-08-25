@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
@@ -11,6 +11,8 @@ from django.views.generic import (
     ListView,
     UpdateView,
 )
+
+from task_manager.views import AuthRequired
 
 from .forms import UserCreateForm, UserLoginForm, UserUpdateForm
 
@@ -28,8 +30,8 @@ class UserCreateView(
 
 
 class UserPermission(
+    AuthRequired,
     UserPassesTestMixin,
-    LoginRequiredMixin,
     SuccessMessageMixin,
     ):
     model = User
@@ -40,13 +42,10 @@ class UserPermission(
 
     def handle_no_permission(self):
         if not self.request.user.is_authenticated:
-            message = 'Вы не авторизованы! Пожалуйста, выполните вход.'
-            redirect_url = 'login'
-        else:
-            message = 'У вас нет прав для изменения другого пользователя.'
-            redirect_url = 'users:index'
-        messages.error(self.request, message)
-        return redirect(redirect_url)
+            return super().handle_no_permission()
+        messages.error(self.request, 'У вас нет прав \
+                       для изменения другого пользователя.')
+        return redirect('users:index')
 
 
 class UserUpdateView(

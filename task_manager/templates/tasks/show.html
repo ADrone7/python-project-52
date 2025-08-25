@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Просмотр задачи
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+      <div class="card-header bg-secondary text-white">
+        <h2>{{ task.name }}</h2>
+      </div>
+      <div class="card-body bg-light">
+        <p>{{ task.description }}</p>
+        <hr>
+        <div class="container">
+          <div class="row p-1">
+            <div class="col">Автор</div>
+            <div class="col">{{ task.author.get_full_name|default:task.author.username }}</div>
+          </div>
+          <div class="row p-1">
+            <div class="col">Исполнитель</div>
+            <div class="col">{% if task.executor %}
+                {{ task.executor.get_full_name|default:task.executor.username }}
+            {% else %}
+                None
+            {% endif %}</div>
+          </div>
+          <div class="row p-1">
+            <div class="col">Статус</div>
+            <div class="col">{{ task.status.name }}</div>
+          </div>
+          <div class="row p-1">
+            <div class="col">Дата создания</div>
+            <div class="col">{{ task.created_at|date:"d.m.Y H:i" }}</div>
+          </div>
+          <div class="row p-1">
+            <div class="col">
+              <h6>Метки:</h6>
+              <ul>
+                {% if task.labels.all %}
+                            {% for label in task.labels.all %}
+                            <li>{{ label.name }}</li>
+                            {% endfor %}
+                        {% endif %}
+              </ul>
+            </div>
+          </div>
+          <div class="row p-1">
+            <div class="col">
+              <a href="{% url 'tasks:update' task.id %}">Изменить</a>
+              <br>
+              <a href="{% url 'tasks:delete' task.id %}">Удалить</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

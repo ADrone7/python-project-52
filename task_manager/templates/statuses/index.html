@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Статусы
+{% endblock %}
+
+{% block content %}
+<a class="btn btn-primary mb-3" href="{% url 'statuses:create' %}">Создать статус</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Дата создания</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for status in statuses %}
+        <tr>
+            <td>{{ status.id }}</td>
+            <td>{{ status.name }}</td>
+            <td>{{ status.created_at|date:"d.m.Y H:i" }}</td>
+            <td>
+                <a href="{% url 'statuses:update' status.id %}" class="text-primary me-2">Изменить</a>
+                <a href="{% url 'statuses:delete' status.id %}" class="text-danger">Удалить</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

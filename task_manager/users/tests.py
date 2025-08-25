@@ -36,7 +36,7 @@ class UserTests(TestCase):
         messages = list(get_messages(response.wsgi_request))
         assert "успешно" in str(messages[0]).lower()
 
-    def test_unauthenticated_acces(self):
+    def test_unauthenticated_access(self):
         available_actions = ['update', 'delete']
         for action in available_actions:
             url = reverse(f'users:{action}', kwargs={'pk': self.user.pk})

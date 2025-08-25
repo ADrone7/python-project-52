@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% load django_bootstrap5 %}
 
 {% block title %}
 Создать задачу
@@ -7,7 +8,7 @@
 {% block content %}
 <form method="post">
     {% csrf_token %}
-    {{ form }}
-    <input class="btn btn-primary" type="submit" value="Создать">
+    {% bootstrap_form form %}
+    {% bootstrap_button "Создать" button_type="submit" button_class="btn-primary" %}
 </form>
 {% endblock %}

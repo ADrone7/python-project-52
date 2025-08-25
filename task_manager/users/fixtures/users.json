@@ -1,0 +1,41 @@
+[
+    {
+        "model": "users.user",
+        "pk": 1,
+        "fields": {
+            "username": "user1",
+            "first_name": "user1_first",
+            "last_name": "user1_last",
+            "password": "pbkdf2_sha256$1000000$AuAltacyHWWWSFxF49vGOD$76lzqdWORyfBGtr43IdQ3vdZVWoPNiuRCFR0KxqPK6U=",
+            "is_superuser": false,
+            "is_staff": false,
+            "is_active": true
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 2,
+        "fields": {
+            "username": "user2",
+            "first_name": "user2_first",
+            "last_name": "user2_last",
+            "password": "pbkdf2_sha256$1000000$AuAltacyHWWWSFxF49vGOD$76lzqdWORyfBGtr43IdQ3vdZVWoPNiuRCFR0KxqPK6U=",
+            "is_superuser": false,
+            "is_staff": false,
+            "is_active": true
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 3,
+        "fields": {
+            "username": "user3",
+            "first_name": "user3_first",
+            "last_name": "user3_last",
+            "password": "pbkdf2_sha256$1000000$AuAltacyHWWWSFxF49vGOD$76lzqdWORyfBGtr43IdQ3vdZVWoPNiuRCFR0KxqPK6U=",
+            "is_superuser": false,
+            "is_staff": false,
+            "is_active": true
+        }
+    }
+]

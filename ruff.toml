@@ -8,4 +8,7 @@ line-length = 80
 preview = true
 select = ["E", "F", "I", "C90"]
 
-exclude = ["settings.py"]
+exclude = [
+  "*/migrations/*",
+  "settings.py",
+]

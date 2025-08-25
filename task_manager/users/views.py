@@ -85,6 +85,10 @@ class UserListView(ListView):
     template_name = 'users/index.html'
     context_object_name = 'users'
 
+    def dispatch(self, request, *args, **kwargs):
+        raise Exception("Rollbar Check")
+        return super().dispatch(request, *args, **kwargs)
+
 
 class UserLoginView(SuccessMessageMixin, LoginView):
     template_name = 'users/login.html'

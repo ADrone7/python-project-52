@@ -59,7 +59,6 @@ class StatusDeleteView(
             return redirect(self.success_url)
             
         response = super().post(request, *args, **kwargs)
-        messages.success(self.request, self.success_message)
         return response
 
 

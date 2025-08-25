@@ -23,7 +23,7 @@ class StatusCreateView(
     form_class = StatusForm
     template_name = 'statuses/create.html'
     success_url = reverse_lazy('statuses:index')
-    success_message = 'Статус успешно добавлен'
+    success_message = 'Статус успешно создан'
 
 
 class StatusUpdateView(

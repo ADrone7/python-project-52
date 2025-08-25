@@ -43,8 +43,7 @@ class UserPermission(
     def handle_no_permission(self):
         if not self.request.user.is_authenticated:
             return super().handle_no_permission()
-        messages.error(self.request, 'У вас нет прав \
-                       для изменения другого пользователя.')
+        messages.error(self.request, 'У вас нет прав для изменения')
         return redirect('users:index')
 
 

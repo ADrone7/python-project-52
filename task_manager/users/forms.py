@@ -38,6 +38,10 @@ class UserCreateForm(UserCreationForm):
             'last_name': forms.TextInput(attrs={'required': True}),
             'username': forms.TextInput(attrs={'required': True}),
         }
+        help_texts = {
+            'username': 'Обязательное поле. Не более 150 символов.\
+                  Только буквы, цифры и символы @/./+/-/_.',
+        }
 
     def clean(self):
         cleaned_data = super().clean()

@@ -9,6 +9,7 @@ A Django-based task management system that allows users to create, track, and ma
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/ADrone7/python-project-52/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/ADrone7/python-project-52/actions)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=ADrone7_python-project-52&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=ADrone7_python-project-52)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ADrone7_python-project-52&metric=coverage)](https://sonarcloud.io/summary/new_code?id=ADrone7_python-project-52)
 ****
 
 ### Live on Render.com
